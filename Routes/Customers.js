@@ -8,55 +8,70 @@ const History=require('../Models/history')
 //     {
 //         name:'Aditya Kumar',
 //         email:'aditya123@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Mohit Kumar',
 //         email:'akkim786@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Amit Raj',
 //         email:'amitraj@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Rohit Kumar',
 //         email:'rohit123@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Abhishek Kesri',
 //         email:'abhishek345@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Priyanshu Kumar',
 //         email:'priyanshu@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Roshan Kumar',
 //         email:'roshan123@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Raju',
 //         email:'raju123@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Shyam',
 //         email:'shyam123@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 //     {
 //         name:'Babu Rao',
 //         email:'baburao@gmail.com',
-//         balance:'1000000000'
+//         balance:'10000'
 //     },
 
 // ]
+
+// router.get('/seed',(req,res)=>{
+//     let i;
+//     for(i=0;i<data.length;i++)
+//     {
+//         let dat=new Customers(data[i])
+
+//         dat.save()
+//         .then(saved=>{
+//             console.log('data saved')
+//         })
+//         .catch(err=>console.log(err))
+//     }
+// })
+
 router.get('/customers',(req,res)=>{
 
     Customers.find({})
@@ -66,7 +81,7 @@ router.get('/customers',(req,res)=>{
     .catch(err=>console.log(err ))
 })
 
-router.get('/customers/:id',(req,res)=>{
+router.get('/customer/:id',(req,res)=>{
 
     const id =req.params.id;
 
@@ -77,6 +92,17 @@ router.get('/customers/:id',(req,res)=>{
     .catch(err=>{
         console.log(err)
     })
+})
+
+router.post('/getname',(req,res)=>{
+
+    const {email}=req.body
+    Customers.findOne({email:email})
+    .then(customer=>{
+        console.log(customer)
+        res.send(customer)
+    })
+    .catch(err=>console.log(err))
 })
 
 router.post('/transaction',(req,res)=>{
@@ -160,10 +186,11 @@ Customers.findOne({email:senderemail})
 
 router.get('/history',(req,res)=>{
 
-    History.find({},{sort:{date:-1}})
+    History.find({})
     .then(history=>{
         res.send(history)
     })
+    .catch(err=>console.log(err))
 })
 
 
