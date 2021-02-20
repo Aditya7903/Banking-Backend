@@ -1,11 +1,11 @@
 const express=require('express')
 const mongoose =require('mongoose')
 const cors=require('cors')
-
+require('dotenv').config()
 const PORT=process.env.PORT||5000
 const app=express();
 
-  mongoose.connect('mongodb://localhost/bankingsystem',{useNewUrlParser: true,useUnifiedTopology: true })
+  mongoose.connect(process.env.MONGOURI,{useNewUrlParser: true,useUnifiedTopology: true })
         .then(()=>{
         console.log('databse connected')
         })     
